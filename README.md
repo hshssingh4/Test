@@ -16,6 +16,7 @@ The following **required** functionality is complete:
 * Settings page to change the default tip percentage.
 
 The following **optional** features are implemented:
+* Remembering the bill amount across app restarts (if <10mins)
 * UI animations, plus other color, layout, as well as font changes.
 - Animations include a top down animation of the text field when the field is empty and and a bottom up
 animation as soon as the user starts typing.
@@ -28,12 +29,14 @@ The following **additional** features are implemented:
 
 - App icon has been added for all cases (settings, spotlight, and home screen).
 - Launch screen has been added that displays app's name, its icon, as well as the builder's name (i.e. mine).
+- A slider has been added that allow user to choose a custom tip percentage.
+- Switches have been added to let the user decide whether he/she needs default amounts or custom ones.
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/7Co3R8I.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/1AShdVP.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
