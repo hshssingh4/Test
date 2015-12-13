@@ -16,6 +16,12 @@ class SettingsViewController: UIViewController
     //the theme bar control for changing themes
     @IBOutlet weak var defaultTipLabel: UILabel!
     @IBOutlet weak var themeLabel: UILabel!
+    @IBOutlet weak var defaultTipSwitch: UISwitch!
+    @IBOutlet weak var customTipSwitch: UISwitch!
+    @IBOutlet weak var customTipSlider: UISlider!
+    @IBOutlet weak var sliderLabel: UILabel!
+    @IBOutlet weak var customTipLabel: UILabel!
+    
     let defaults = NSUserDefaults.standardUserDefaults()
     let originalTintColor: UIColor = UIColor(red: 0, green: 0.478431, blue: 1, alpha: 1)
     /*
@@ -38,6 +44,16 @@ class SettingsViewController: UIViewController
         super.viewWillDisappear(animated)
         defaults.setInteger(tapControlSettings.selectedSegmentIndex, forKey: "indexDefaultTip")
         defaults.setInteger(themeControl.selectedSegmentIndex, forKey: "indexThemeColor")
+        defaults.setBool(defaultTipSwitch.enabled, forKey: "defaultTipSwitch")
+        defaults.setInteger(Int(customTipSlider.value), forKey: "customTipValue")
+        if customTipSwitch.on
+        {
+            defaults.setBool(true, forKey: "customTipSlider")
+        }
+        else
+        {
+            defaults.setBool(false, forKey: "customTipSlider")
+        }
         defaults.synchronize()
     }
     
@@ -65,6 +81,14 @@ class SettingsViewController: UIViewController
         default:
             break
         }
+        customTipSlider.value = Float(defaults.integerForKey("customTipValue"))
+        sliderLabel.text = String(Int(customTipSlider.value)) + " %"
+        if defaults.boolForKey("customTipSlider")
+        {
+            defaultTipSwitch.on = false
+            customTipSwitch.on = true
+        }
+        switchState("")
     }
     
     /*
@@ -80,6 +104,11 @@ class SettingsViewController: UIViewController
             themeLabel.textColor = UIColor.blackColor()
             tapControlSettings.tintColor = originalTintColor
             themeControl.tintColor = originalTintColor
+            customTipLabel.textColor = UIColor.blackColor()
+            sliderLabel.textColor = UIColor.blackColor()
+            customTipSlider.tintColor = originalTintColor
+            defaultTipSwitch.onTintColor = UIColor.greenColor()
+            customTipSwitch.onTintColor = UIColor.greenColor()
         }
         else if themeControl.selectedSegmentIndex == 1
         {
@@ -88,8 +117,61 @@ class SettingsViewController: UIViewController
             themeLabel.textColor = UIColor.whiteColor()
             tapControlSettings.tintColor = UIColor.whiteColor()
             themeControl.tintColor = UIColor.whiteColor()
+            customTipLabel.textColor = UIColor.whiteColor()
+            sliderLabel.textColor = UIColor.whiteColor()
+            customTipSlider.tintColor = UIColor.lightGrayColor()
+            defaultTipSwitch.onTintColor = UIColor.lightGrayColor()
+            customTipSwitch.onTintColor = UIColor.lightGrayColor()
         }
 
+    }
+    
+    @IBAction func sliderValueChanged(sender: AnyObject)
+    {
+        if customTipSwitch.on
+        {
+            customTipSlider.enabled = true
+            sliderLabel.text = String(Int(customTipSlider.value)) + " %"
+            defaults.setBool(true, forKey: "customTipSlider")
+            defaults.setInteger(Int(customTipSlider.value), forKey: "customTipValue")
+        }
+        else
+        {
+            customTipSlider.enabled = false
+            defaults.setBool(false, forKey: "customTipSlider")
+        }
+    }
+    
+    @IBAction func switchState(sender: AnyObject)
+    {
+        if defaultTipSwitch.on
+        {
+            tapControlSettings.enabled = true
+            customTipSlider.enabled = false
+            customTipSwitch.on = false
+        }
+        else
+        {
+            tapControlSettings.enabled = false
+            customTipSlider.enabled = true
+            customTipSwitch.on = true
+        }
+    }
+
+    @IBAction func switchState2(sender: AnyObject)
+    {
+        if customTipSwitch.on
+        {
+            tapControlSettings.enabled = false
+            customTipSlider.enabled = true
+            defaultTipSwitch.on = false
+        }
+        else
+        {
+            tapControlSettings.enabled = true
+            customTipSlider.enabled = false
+            defaultTipSwitch.on = true
+        }
     }
     
     override func didReceiveMemoryWarning()
