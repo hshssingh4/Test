@@ -52,7 +52,7 @@ by my brother and was able to finish that task finally.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2015] [Harpreet Singh]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
